@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-tech">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html"><i class="bi bi-cpu"></i> Tech Store</a>
+
+            <ul class="navbar-nav mx-auto d-flex flex-row gap-3">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="suivi.html"><i class="bi bi-truck"></i> Suivre ma commande</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin.html">Contact</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-2">
+                <input class="form-control" type="text" placeholder="Rechercher" id="recherche" style="width:180px">
+                <button class="btn btn-outline-light position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPanier">
+                    <i class="bi bi-cart3"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-gold" id="panierCompteur" style="display:none;">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="hero">
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <h1>La technologie qui <span class="accent">vous ressemble</span></h1>
+                    <p class="my-3">
+                        Des solutions technologiques centrées sur vous. Commandez en ligne et suivez
+                        votre colis en temps réel jusqu'à votre porte.
+                    </p>
+                    <a href="#zone-produits" class="btn btn-gold px-4 py-2">Découvrir le catalogue</a>
+                    <a href="suivi.html" class="btn btn-outline-light px-4 py-2 ms-2">
+                        <i class="bi bi-truck"></i> Suivre un colis
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3 class="py-2">Top catégories</h3>
+        <div class="row g-4" id="zone-produits"></div>
+    </div>
+
+    <!-- Offcanvas Panier -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasPanier">
+        <div class="offcanvas-header" style="background: var(--navy); color: #fff;">
+            <h5 class="offcanvas-title"><i class="bi bi-cart3"></i> Mon panier</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <div id="panierVide" class="text-center text-muted py-5">
+                <i class="bi bi-cart-x" style="font-size: 2.5rem;"></i>
+                <p class="mt-2">Votre panier est vide.</p>
+            </div>
+            <div id="panierContenu"></div>
+            <div class="mt-auto pt-3 border-top" id="panierPied" style="display:none;">
+                <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
+                    <span>Total</span>
+                    <span id="panierTotal">0 FCFA</span>
+                </div>
+                <button class="btn btn-gold w-100" data-bs-dismiss="offcanvas" onclick="ouvrirCommande()">
+                    Passer la commande
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Achat -->
+    <div class="modal fade" id="modalAchat" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: var(--navy); color: #fff;">
+                    <h5 class="modal-title"><i class="bi bi-bag-check"></i> Finaliser la commande</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="achatFormulaire">
+                        <div class="mb-3 p-2 rounded" style="background: var(--cream);" id="achatRecap"></div>
+                        <div class="mb-3">
+                            <label class="form-label">Nom complet</label>
+                            <input type="text" id="achatClient" class="form-control" placeholder="Votre nom">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Téléphone</label>
+                            <input type="tel" id="achatTelephone" class="form-control" placeholder="77 000 00 00">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Adresse de livraison</label>
+                            <input type="text" id="achatAdresse" class="form-control" placeholder="Quartier, ville">
+                        </div>
+                        <button class="btn btn-gold w-100" onclick="confirmerAchat()">Confirmer la commande</button>
+                    </div>
+                    <div id="achatConfirmation" style="display:none;" class="text-center py-3">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 2.5rem;"></i>
+                        <h5 class="mt-3">Commande enregistrée !</h5>
+                        <p class="text-muted">Votre numéro de suivi :</p>
+                        <p class="fw-bold fs-5" id="numeroColisGenere"></p>
+                        <a href="#" id="lienSuivi" class="btn btn-gold">Suivre mon colis</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-top mt-5 pt-5 pb-3">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="fw-bold" style="color: var(--navy);">TECH-STORE</h4>
+                    <p class="text-muted mb-3">
+                        La technologie humaine pour un avenir plus simple et connecté.
+                    </p>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="fw-bold small mb-3">Explorer</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="link-secondary link-underline-opacity-0">Accueil</a></li>
+                        <li class="mb-2"><a href="admin.html" class="link-secondary link-underline-opacity-0">Catalogue</a></li>
+                        <li class="mb-2"><a href="suivi.html" class="link-secondary link-underline-opacity-0">Suivi de commande</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="fw-bold small mb-3">Contact rapide</h6>
+                    <p class="text-muted mb-3">Laissez votre numéro, on vous rappelle.</p>
+                    <div class="d-flex flex-column gap-2">
+                        <input type="tel" class="form-control" placeholder="77 000 00 00">
+                        <button class="btn btn-dark fw-bold">
+                            <i class="bi bi-plus-lg me-1"></i>Ajouter
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+                <span class="text-muted small">&copy; 2026 Tech Store. Tous droits réservés.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/produitsData.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

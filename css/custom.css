@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --navy: #10213D;
+    --navy-light: #1B3A63;
+    --gold: #F0A202;
+    --gold-light: #FFC94D;
+    --cream: #F7F5F1;
+    --slate: #5A6478;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--cream);
+    color: var(--navy);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sora', sans-serif;
+    color: var(--navy);
+}
+
+/* ---------- Navbar ---------- */
+.navbar-tech {
+    background: var(--navy);
+}
+
+.navbar-tech .navbar-brand {
+    font-family: 'Sora', sans-serif;
+    color: var(--gold-light) !important;
+    letter-spacing: .5px;
+}
+
+.navbar-tech .nav-link {
+    color: #E4E8F0 !important;
+    font-weight: 500;
+}
+
+.navbar-tech .nav-link.active {
+    color: var(--gold-light) !important;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+    background: radial-gradient(circle at 85% 20%, var(--navy-light) 0%, var(--navy) 55%);
+    border-radius: 1.25rem;
+    color: #fff;
+    padding: 4rem 3rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 15% 90%, rgba(240, 162, 2, .18), transparent 40%);
+}
+
+.hero h1 {
+    color: #fff;
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.hero .accent {
+    color: var(--gold-light);
+}
+
+.hero p {
+    color: #C7CEDD;
+    max-width: 32rem;
+}
+
+.bg-gold {
+    background: var(--gold) !important;
+    color: var(--navy) !important;
+}
+
+.btn-gold {
+    background: var(--gold);
+    border: none;
+    color: var(--navy);
+    font-weight: 600;
+    transition: transform .15s ease, background .15s ease;
+}
+
+.btn-gold:hover {
+    background: var(--gold-light);
+    color: var(--navy);
+    transform: translateY(-1px);
+}
+
+/* ---------- Product cards ---------- */
+.product-card {
+    border: 1px solid #E8E3D9;
+    border-radius: .9rem;
+    transition: transform .18s ease, box-shadow .18s ease;
+    background: #fff;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(16, 33, 61, .12);
+}
+
+.product-card img {
+    height: 160px;
+    object-fit: contain;
+}
+
+.product-card .prix {
+    color: var(--navy);
+    font-size: 1.05rem;
+}
+
+.badge-categorie {
+    background: var(--cream);
+    color: var(--navy);
+    border: 1px solid #E8E3D9;
+    font-weight: 500;
+}
+
+/* ---------- Panier ---------- */
+.panier-item {
+    border-bottom: 1px solid #E8E3D9;
+    padding: .75rem 0;
+}
+
+.panier-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.qte-btn {
+    width: 28px;
+    height: 28px;
+    line-height: 1;
+    padding: 0;
+}
+
+/* ---------- Suivi / statut ---------- */
+.timeline {
+    border-left: 2px solid #E8E3D9;
+    padding-left: 1.25rem;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.25rem;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -1.63rem;
+    top: .25rem;
+    width: .65rem;
+    height: .65rem;
+    border-radius: 50%;
+    background: var(--gold);
+}
+
+.tracking-hero {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+.tracking-hero input {
+    border: none;
+}
+
+/* ---------- Admin ---------- */
+.navbar-admin {
+    background: var(--navy);
+}
+
+.nav-tabs .nav-link.active {
+    border-bottom: 3px solid var(--gold);
+    font-weight: 600;
+    color: var(--navy);
+}
