@@ -13,6 +13,7 @@ function trouverColis(num) {
 }
 
 function rechercherColis() {
+    colis = JSON.parse(localStorage.getItem('listeColis')) || [];
     const num = document.getElementById('numeroRecherche').value.trim();
     const c = trouverColis(num);
 

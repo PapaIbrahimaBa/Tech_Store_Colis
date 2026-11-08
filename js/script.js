@@ -15,7 +15,7 @@ function affichageProduits(liste) {
                         <span class="badge badge-categorie mb-2 align-self-center">${el.categorie || 'Produit'}</span>
                         <h5 class="card-title">${el.libelle}</h5>
                         <p class="fw-bold prix"><span class="text-warning">PRIX :</span> ${Number(el.prix).toLocaleString('fr-FR')} FCFA</p>
-                        <button class="btn btn-gold mt-auto" ${rupture ? 'disabled' : ''} onclick="ajouterPanier(${index})">
+                        <button class="btn btn-gold mt-auto" ${rupture ? 'disabled' : ''} onclick="ajouterPanier(${produits.indexOf(el)})">
                             ${rupture ? 'Rupture de stock' : 'Ajouter au panier'}
                         </button>
                     </div>
@@ -195,9 +195,11 @@ function confirmerAchat() {
         historique: [{ statut: "Enregistré", date: dateHeureActuelle() }]
     };
 
+    colis = JSON.parse(localStorage.getItem('listeColis')) || [];
     colis.push(nouveauColis);
     localStorage.setItem('listeColis', JSON.stringify(colis));
 
+    produits = chargerProduits();
     panier.forEach(l => {
         const produit = produits.find(p => p.libelle == l.libelle);
         if (produit) produit.stock = Math.max(0, produit.stock - l.quantite);

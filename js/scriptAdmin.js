@@ -46,6 +46,14 @@ function afficherTableau() {
 }
 afficherTableau();
 
+document.getElementById('btn-reinit').addEventListener('click', () => {
+    if (confirm("Remettre le catalogue par défaut ?")) {
+        localStorage.removeItem('produits');
+        produits = chargerProduits();
+        afficherTableau();
+    }
+});
+
 ajout.addEventListener('click', () => formulaire.classList.remove('d-none'));
 annuler.addEventListener('click', () => formulaire.classList.add('d-none'));
 fermer.addEventListener('click', () => formulaire.classList.add('d-none'));
@@ -60,6 +68,7 @@ enregistrer.addEventListener('click', () => {
         stock: Number(document.getElementById("Stock").value)
     };
 
+    produits = chargerProduits();
     produits.push(nouveauProduit);
     sauvegarder();
     afficherTableau();
@@ -154,6 +163,7 @@ function ajouterColis() {
         historique: [{ statut: "Enregistré", date: dateHeureActuelle() }]
     };
 
+    colis = JSON.parse(localStorage.getItem('listeColis')) || [];
     colis.push(nouveauColis);
     saveColisLS();
 
@@ -213,6 +223,7 @@ function afficherDetailColis() {
 }
 
 function mettreAJourColis() {
+    colis = JSON.parse(localStorage.getItem('listeColis')) || [];
     let c = trouverColis(numeroSelectionne);
     let valeur = document.getElementById('selectEtapeColis').value;
 
@@ -254,3 +265,13 @@ function afficherDashboardColis() {
     document.getElementById('colisTransitAdmin').textContent = colis.filter(c => c.statut == "En transit").length;
     document.getElementById('colisArrivesAdmin').textContent = colis.filter(c => c.statut == "Arrivé à destination").length;
 }
+
+// Met l'admin à jour quand une commande arrive depuis une autre page/onglet
+window.addEventListener('storage', () => {
+    produits = chargerProduits();
+    afficherTableau();
+    colis = JSON.parse(localStorage.getItem('listeColis')) || [];
+    tableColis.clear();
+    tableColis.rows.add(colis);
+    tableColis.draw();
+});
